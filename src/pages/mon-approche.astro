@@ -1,0 +1,120 @@
+---
+// 1. On importe (encore) notre Layout
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Mon Approche">
+
+    <section class="page-intro">
+        <h1>Le bon outil pour le bon projet. C'est tout.</h1>
+        <p class="subtitle">
+            Mon travail n'est pas de vous vendre WordPress ou la dernière technologie à la mode. 
+            Mon travail est de vous écouter, et de choisir ensemble la solution la plus 
+            pragmatique et la plus rentable pour vous.
+        </p>
+    </section>
+
+    <section class="solutions-grid">
+        
+        <div class="solution-card">
+            <h2>Option 1 : Performance & Sérénité</h2>
+            <p><strong>Pour qui ?</strong> Sites vitrines, artisans, TPE/PME qui veulent un site et "ne plus y penser".</p>
+            
+            <ul class="benefits">
+                <li>⚡️ <strong>Ultra-Rapide :</strong> S'affiche instantanément, excellent pour Google.</li>
+                <li>🛡️ <strong>Sécurisé :</strong> Quasi-impossible à pirater (pas de plugins, pas de base de données).</li>
+                <li>🧘 <strong>Zéro Maintenance :</strong> Pas de "mises à jour de sécurité" stressantes.</li>
+            </ul>
+
+            <p><strong>Comment ?</strong> Je construis le site "en dur" (comme celui-ci) et vous fournis une interface d'administration très simple (Headless CMS) pour que vous restiez autonome sur vos textes.</p>
+        </div>
+
+        <div class="solution-card">
+            <h2>Option 2 : Autonomie & Évolutivité</h2>
+            <p><strong>Pour qui ?</strong> Blogs très actifs, besoins de fonctionnalités spécifiques (réservation...), ou si vous êtes déjà à l'aise avec l'outil.</p>
+
+            <ul class="benefits">
+                <li>👐 <strong>Autonomie Totale :</strong> Vous connaissez l'interface et pouvez (presque) tout gérer.</li>
+                <li>⚙️ <strong>Écosystème Géant :</strong> Des milliers de plugins pour ajouter des fonctionnalités.</li>
+            </ul>
+
+            <p><strong>Mon "Plus" :</strong> Je ne me contente pas d'installer un thème lourd. Je construis un site WordPress <strong>optimisé, léger et sécurisé</strong>. Je vous propose ensuite un contrat de maintenance pour que vous n'ayez jamais à vous soucier de la technique.</p>
+        </div>
+
+    </section>
+
+    <section class="extra-services">
+        <h3>Et pour l'E-Commerce ? (PrestaShop/Shopify)</h3>
+        <p>Pour la vente en ligne, mon expertise de 6 ans entre en jeu. Au-delà de la création du site, je vous accompagne sur ce qui *fait* vendre : optimisation de catalogue, SEO, et gestion de flux produits pour Google Shopping (Performance Max).</p>
+
+        <h3>Mes autres services</h3>
+        <ul>
+            <li>Audit SEO Technique & Migration</li>
+            <li>SEA (Google Ads) : Gestion de campagnes locales et de flux e-commerce</li>
+        </ul>
+    </section>
+
+</BaseLayout>
+
+
+<style>
+    .page-intro {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .page-intro h1 {
+        font-size: 2.5rem; /* Un peu plus petit que le H1 de la page d'accueil */
+    }
+    .page-intro .subtitle {
+        font-size: 1.15rem;
+        color: #495057;
+        max-width: 700px;
+        margin: 1rem auto 0;
+    }
+
+    /* La grille pour les 2 colonnes */
+    .solutions-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 colonnes de taille égale */
+        gap: 2rem; /* Espace entre les colonnes */
+    }
+
+    .solution-card {
+        background-color: #ffffff;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 12px rgba(0,0,0, 0.05);
+    }
+
+    .solution-card h2 {
+        margin-top: 0;
+        color: #007bff; /* On rappelle le bleu du bouton */
+    }
+
+    .benefits {
+        list-style: none;
+        padding-left: 0;
+    }
+    .benefits li {
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+    }
+
+    .extra-services {
+        margin-top: 3rem;
+        background-color: #ffffff;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 1.5rem 2rem;
+    }
+
+    /* IMPORTANT : Rendre la grille responsive sur mobile 
+      (les 2 colonnes passeront l'une sous l'autre)
+    */
+    @media (max-width: 768px) {
+        .solutions-grid {
+            grid-template-columns: 1fr; /* 1 seule colonne */
+        }
+    }
+</style>

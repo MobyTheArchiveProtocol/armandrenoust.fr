@@ -1,47 +1,77 @@
 ---
-// On définit une "Prop" (propriété) que nos pages devront fournir.
-// Chaque page devra donner son propre titre (ex: "Accueil", "À Propos")
+// 1. On IMPORTE nos nouveaux composants
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// On définit les "Props" attendues par ce Layout
 export interface Props {
     title: string;
 }
 
-// On récupère le titre passé par la page
+// On récupère le titre passé par la page (ex: "Accueil")
 const { title } = Astro.props;
 ---
 
 <html lang="fr">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-g" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     
     <title>{title} | Artisan Web Pragmatique</title>
-</head>
+
+    </head>
 <body>
+    
+    <Header />
     
     <main>
         <slot />
     </main>
 
-    </body>
+    <Footer />
+
+</body>
 </html>
 
 <style is:global>
-    /* On utilise "is:global" pour dire à Astro que ce style
-      doit s'appliquer à toute la page (ex: la balise body).
+    /* On utilise 'is:global' pour pouvoir cibler les balises 
+     <html> et <body> directement.
     */
+    html {
+        box-sizing: border-box;
+    }
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+
     body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         background-color: #f8f9fa;
         color: #212529;
         margin: 0;
         padding: 0;
+
+        /* Cette configuration (Flexbox) est cruciale :
+         Elle force le <body> à prendre 100% de la hauteur (min-height: 100vh)
+         et pousse le <Footer> en bas, même sur les pages courtes.
+        */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
     }
 
     main {
-        max-width: 900px;
-        margin: 0 auto;
+        max-width: 900px; /* Largeur max du contenu */
+        width: 100%;
+        margin: 0 auto; /* Centrage automatique */
         padding: 2rem;
+
+        /* C'est la partie qui "pousse" le footer.
+         'flex: 1' dit à 'main' de prendre toute la place 
+         verticale disponible entre le Header et le Footer.
+        */
+        flex: 1; 
     }
 </style>

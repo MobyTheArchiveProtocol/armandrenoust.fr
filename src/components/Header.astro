@@ -1,0 +1,58 @@
+---
+// Pas besoin de JS pour l'instant
+---
+
+<header class="site-header">
+    <div class="container">
+        <a href="/" class="logo">[Votre Nom]</a>
+
+        <nav>
+            <a href="/">Accueil</a>
+            <a href="/mon-approche">Mon Approche</a>
+            </nav>
+    </div>
+</header>
+
+<style>
+    .site-header {
+        background-color: #ffffff;
+        border-bottom: 1px solid #dee2e6;
+        padding: 1rem 0;
+    }
+
+    /* On réutilise la classe 'container' pour centrer le contenu,
+       mais on la définit localement ici.
+    */
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between; /* Met le logo à gauche et la nav à droite */
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #212529;
+        text-decoration: none;
+    }
+
+    nav {
+        display: flex;
+        gap: 1.5rem; /* Espace entre les liens du menu */
+    }
+
+    nav a {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #495057;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+        color: #007bff; /* Rappel du bleu */
+    }
+</style>
