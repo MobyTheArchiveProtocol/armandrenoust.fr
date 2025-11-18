@@ -62,33 +62,26 @@ const currentYear = new Date().getFullYear();
 
     /* Mobile : On empile si l'écran est petit */
     @media (max-width: 600px) {
-        .container {
-            flex-direction: column;
-            gap: 1rem;
-            text-align: center;
-        }
+    .container {
+        flex-direction: column;
+        gap: 0.5rem; 
+        text-align: center; 
+        
+        /* FIX : Centre tous les éléments dans la colonne */
+        align-items: center; 
+        justify-content: center; 
     }
-    .footer-main {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
+    
+    /* La ligne légale s'aligne aussi */
     .footer-legal {
+        text-align: center;
+        padding-top: 0.5rem;
+    }
+    
+    .footer-links {
+        /* Assure que les liens restent côte à côte mais centrés */
+        justify-content: center;
         width: 100%;
-        text-align: center; /* Centré ou à gauche selon préférence */
-        margin-top: 2rem;
-        padding-top: 1rem;
-        border-top: 1px solid rgba(255,255,255,0.02); /* Ligne très très fine */
     }
-
-    .footer-legal a {
-        font-size: 0.75rem; /* Plus petit que le reste */
-        color: #444; /* Très discret */
-        text-decoration: none;
-    }
-    .footer-legal a:hover { color: #888; }
+}
 </style>

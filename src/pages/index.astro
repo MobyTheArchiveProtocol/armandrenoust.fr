@@ -169,27 +169,28 @@ const { title, subtitle, ctaText, ctaLink, description } = accueilData.data;
         .btn-geist-primary, .btn-geist-secondary { width: 100%; justify-content: center; }
     }
     @media (max-width: 768px) {
-    /* Le conteneur principal */
-    main { padding: 1rem; }
-
-    /* Titres (très importants) */
-    h1 { font-size: 2.8rem; }
-    .subtitle { font-size: 1.1rem; }
-
-    /* La grille de 3 cartes devient une seule colonne */
-    .grid-wrapper { 
-        grid-template-columns: 1fr; /* 1 colonne */
-        gap: 1.5rem;
-    }
     
-    /* Les boutons se mettent en colonne */
+    /* ... autres styles ... */
+
+    /* La div qui contient les boutons */
     .actions { 
         flex-direction: column; 
+        
+        /* FIX 1 : On donne une taille maximale pour éviter que ce soit trop large */
+        max-width: 320px; 
+        
+        width: 90%; /* Pour qu'il prenne au moins 90% si l'écran est très petit */
+        margin: 0 auto; /* Assure le centrage */
         gap: 0.8rem;
     }
+    
+    /* Les boutons eux-mêmes */
     .btn-geist-primary, .btn-geist-secondary {
         width: 100%;
         justify-content: center;
     }
+
+    /* FIX 2 : On réduit le padding global pour les très petits écrans */
+    main { padding: 1rem; } 
 }
 </style>
