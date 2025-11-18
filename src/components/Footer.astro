@@ -19,69 +19,76 @@ const currentYear = new Date().getFullYear();
 
 <style>
     .site-footer {
-        /* CORRECTION : On enlève le gris, on met transparent */
         background-color: transparent;
-        
-        /* Une ligne de séparation à peine visible (5% d'opacité) */
         border-top: 1px solid rgba(255, 255, 255, 0.05);
-        
         padding: 2rem 0;
-        margin-top: auto; /* S'assure que le footer est poussé tout en bas */
+        margin-top: auto;
     }
 
     .container {
         max-width: var(--max-width);
         margin: 0 auto;
         padding: 0 2rem;
+        
+        /* Centrage et empilement des blocs (main + légal) */
+        display: flex;
+        flex-direction: column; 
+        align-items: center; /* Centre les deux blocs (footer-main et footer-legal) */
+    }
+
+    .footer-main {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1rem; /* Espace entre les deux lignes */
     }
 
-    p {
-        margin: 0;
-        font-size: 0.85rem;
-        color: #666; /* Gris discret */
-    }
+    p { margin: 0; font-size: 0.85rem; color: #666; }
 
     .footer-links {
         display: flex;
-        gap: 1.5rem; /* Espace entre LinkedIn et GitHub */
+        gap: 1.5rem;
     }
 
     .footer-links a {
-        color: #888;
-        font-size: 0.85rem;
-        text-decoration: none;
+        color: #888; font-size: 0.85rem; text-decoration: none;
         transition: color 0.2s;
     }
+    .footer-links a:hover { color: #fff; }
 
-    .footer-links a:hover {
-        color: #fff; /* Devient blanc au survol */
-    }
-
-    /* Mobile : On empile si l'écran est petit */
-    @media (max-width: 600px) {
-    .container {
-        flex-direction: column;
-        gap: 0.5rem; 
-        text-align: center; 
-        
-        /* FIX : Centre tous les éléments dans la colonne */
-        align-items: center; 
-        justify-content: center; 
-    }
-    
-    /* La ligne légale s'aligne aussi */
+    /* Style spécifique au lien légal */
     .footer-legal {
+        width: 100%;
         text-align: center;
         padding-top: 0.5rem;
     }
-    
-    .footer-links {
-        /* Assure que les liens restent côte à côte mais centrés */
-        justify-content: center;
-        width: 100%;
+
+    .footer-legal a {
+        font-size: 0.75rem; /* Très discret */
+        color: #444; /* Gris foncé, pour ne pas attirer l'œil */
+        text-decoration: none;
     }
-}
+    .footer-legal a:hover {
+        color: #888;
+    }
+
+    /* Mobile : On empile les éléments */
+    @media (max-width: 600px) {
+        .footer-main {
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: center;
+        }
+        .footer-links {
+            justify-content: center;
+        }
+        .footer-legal {
+            margin-top: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            padding-top: 0.5rem;
+        }
+    }
 </style>
