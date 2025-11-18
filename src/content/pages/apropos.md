@@ -1,7 +1,7 @@
 ---
 title: De l'e-commerce à l'artisanat web.
-intro: Bonjour, je suis [Votre Nom].
-image: /images/uploads/canne-casting-fox-rage-warrior-zander-cast-z-3632-363207-2.jpg
+intro: Bonjour, je suis Armand Renoust.
+image: /images/uploads/anonymous_emblem.svg
 ---
 
 Depuis 6 ans, je gère le marketing digital du site `leurredelapeche.fr`. J'y ai piloté des migrations, optimisé le SEO, géré des budgets SEA conséquents et plongé dans la technique des flux e-commerce.

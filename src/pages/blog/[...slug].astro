@@ -86,4 +86,15 @@ const { Content } = await post.render(); // On récupère le contenu Markdown co
         font-style: italic;
         color: #fff;
     }
+    @media (max-width: 768px) {
+    .post-header h1 { 
+        font-size: 2rem; 
+    }
+    
+    /* On réduit légèrement la taille du texte de l'article */
+    .post-content {
+        font-size: 1rem; 
+        line-height: 1.7;
+    }
+}
 </style>

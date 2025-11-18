@@ -81,4 +81,21 @@
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
     }
+    @media (max-width: 768px) {
+    /* Masque les liens de navigation classiques sur mobile */
+    nav a:not(.nav-cta) {
+        display: none;
+    }
+    
+    /* Le conteneur entier peut avoir moins de padding */
+    .container {
+        padding: 0 1rem;
+    }
+
+    /* Le logo est très important, on le garde */
+    .logo {
+        font-size: 1.2rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
 </style>

@@ -66,4 +66,13 @@ const posts = (await getCollection('blog')).sort(
     .post-item .date { font-size: 0.9rem; color: #666; margin-bottom: 1rem; }
     .post-item .desc { font-size: 1rem; line-height: 1.6; color: #aaa; margin-bottom: 1.5rem; }
     .post-item .read-more { font-weight: 600; color: var(--brand-color); font-size: 0.9rem;}
+
+@media (max-width: 768px) {
+    .page-intro h1 { font-size: 2.5rem; }
+    
+    /* Moins de padding autour des cartes */
+    .post-item a {
+        padding: 1.5rem;
+    }
+}
 </style>

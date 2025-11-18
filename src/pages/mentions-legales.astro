@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Mentions Légales">
+    <section class="legal-content">
+        <h1>Mentions Légales</h1>
+
+        <div class="legal-block">
+            <h2>1. Éditeur du site</h2>
+            <p>
+                Le site <strong>armandrenoust.fr</strong> est édité par :<br>
+                <strong>Armand Renoust</strong><br>
+                Statut : Auto-entrepreneur<br>
+                SIRET : [Votre Numéro SIRET]<br>
+                Siège social : [Votre Adresse Postale]<br>
+                Email : [Votre Email]<br>
+            </p>
+        </div>
+
+        <div class="legal-block">
+            <h2>2. Hébergement</h2>
+            <p>
+                Ce site est hébergé par :<br>
+                <strong>Vercel Inc.</strong><br>
+                340 S Lemon Ave #4133 Walnut, CA 91789, USA<br>
+                <a href="https://vercel.com" target="_blank" rel="nofollow">https://vercel.com</a>
+            </p>
+        </div>
+
+        <div class="legal-block">
+            <h2>3. Propriété intellectuelle</h2>
+            <p>
+                L’ensemble de ce site relève de la législation française et internationale sur le droit d’auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés.
+            </p>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .legal-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 4rem 0;
+    }
+
+    h1 { margin-bottom: 3rem; text-align: center; }
+
+    .legal-block {
+        margin-bottom: 3rem;
+        border-bottom: 1px solid var(--border-subtle);
+        padding-bottom: 2rem;
+    }
+
+    .legal-block:last-child { border-bottom: none; }
+
+    h2 { font-size: 1.5rem; color: #fff; margin-bottom: 1rem; }
+    p { color: var(--text-muted); }
+    strong { color: #fff; }
+</style>

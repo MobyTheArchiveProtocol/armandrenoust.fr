@@ -15,6 +15,7 @@ const blogCollection = defineCollection({
 const pagesCollection = defineCollection({
   type: 'content',
   schema: z.object({
+  description: z.string().optional(),
     // Champs communs
     title: z.string(),
     

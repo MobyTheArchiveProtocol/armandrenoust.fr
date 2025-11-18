@@ -3,13 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getEntry } from 'astro:content';
 
 const accueilData = await getEntry('pages', 'accueil');
-const title = accueilData?.data?.title || "Default Title";
-const subtitle = accueilData?.data?.subtitle || "Default Subtitle";
-const ctaText = accueilData?.data?.ctaText || "Action";
-const ctaLink = accueilData?.data?.ctaLink || "/";
+const { title, subtitle, ctaText, ctaLink, description } = accueilData.data;
 ---
 
-<BaseLayout title="Accueil">
+<BaseLayout title="Accueil" description={description}>
     
     <section class="hero-wrapper">
         <div class="hero-glow"></div>
@@ -171,4 +168,28 @@ const ctaLink = accueilData?.data?.ctaLink || "/";
         .actions { flex-direction: column; width: 100%; }
         .btn-geist-primary, .btn-geist-secondary { width: 100%; justify-content: center; }
     }
+    @media (max-width: 768px) {
+    /* Le conteneur principal */
+    main { padding: 1rem; }
+
+    /* Titres (très importants) */
+    h1 { font-size: 2.8rem; }
+    .subtitle { font-size: 1.1rem; }
+
+    /* La grille de 3 cartes devient une seule colonne */
+    .grid-wrapper { 
+        grid-template-columns: 1fr; /* 1 colonne */
+        gap: 1.5rem;
+    }
+    
+    /* Les boutons se mettent en colonne */
+    .actions { 
+        flex-direction: column; 
+        gap: 0.8rem;
+    }
+    .btn-geist-primary, .btn-geist-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+}
 </style>

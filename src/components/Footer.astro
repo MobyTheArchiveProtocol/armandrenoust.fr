@@ -11,6 +11,10 @@ const currentYear = new Date().getFullYear();
             <a href="https://github.com" target="_blank">GitHub</a>
         </div>
     </div>
+    <div class="footer-legal">
+            <a href="/mentions-legales">Mentions Légales</a>
+        </div>
+    </div>
 </footer>
 
 <style>
@@ -64,4 +68,27 @@ const currentYear = new Date().getFullYear();
             text-align: center;
         }
     }
+    .footer-main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .footer-legal {
+        width: 100%;
+        text-align: center; /* Centré ou à gauche selon préférence */
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255,255,255,0.02); /* Ligne très très fine */
+    }
+
+    .footer-legal a {
+        font-size: 0.75rem; /* Plus petit que le reste */
+        color: #444; /* Très discret */
+        text-decoration: none;
+    }
+    .footer-legal a:hover { color: #888; }
 </style>

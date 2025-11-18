@@ -1,0 +1,6 @@
+**Fichier : `public/robots.txt`**
+```text
+User-agent: *
+Allow: /
+
+Sitemap: https://armandrenoust.fr/sitemap-index.xml
