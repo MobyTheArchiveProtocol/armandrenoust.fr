@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// 1. On dit à Astro comment générer ces pages
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  return allPosts.map(post => ({
+    params: { slug: post.slug }, // L'URL (ex: "premier-article")
+    props: { post }, // Les données de l'article
+  }));
+}
+
+// 2. On récupère les données de l'article pour cette page
+const { post } = Astro.props;
+const { Content } = await post.render(); // On récupère le contenu Markdown compilé
+---
+
+<BaseLayout title={post.data.title}>
+
+    <article class="blog-post">
+        <header class="post-header">
+            <h1>{post.data.title}</h1>
+            <p class="post-meta">
+                Publié le: {post.data.pubDate.toLocaleDateString('fr-FR', { 
+                    year: 'numeric', month: 'long', day: 'numeric' 
+                })}
+            </post-meta>
+            {post.data.heroImage && (
+                <img src={post.data.heroImage} alt="" class="hero-image" />
+            )}
+        </header>
+
+        <div class="post-content">
+            <Content />
+        </div>
+    </article>
+
+</BaseLayout>
+
+<style>
+    .blog-post { max-width: 750px; margin: 0 auto; }
+    
+    .post-header { text-align: center; margin-bottom: 4rem; }
+    .post-header h1 { font-size: 3rem; line-height: 1.1; margin-bottom: 1rem; color: #fff; }
+    .post-meta { font-size: 1rem; color: #666; margin-bottom: 2rem; }
+    
+    .hero-image {
+        width: 100%; height: auto; border-radius: 12px;
+        border: 1px solid var(--border-subtle);
+        margin-top: 2rem;
+    }
+
+    /* --- TYPOGRAPHIE MARKDOWN (DARK MODE) --- */
+    .post-content {
+        font-size: 1.15rem; line-height: 1.8;
+        color: #ccc; /* Texte gris clair pour lecture confortable */
+    }
+
+    /* Titres dans l'article */
+    .post-content :global(h2) { font-size: 2rem; margin: 3rem 0 1.5rem; color: #fff; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem; }
+    .post-content :global(h3) { font-size: 1.5rem; margin: 2.5rem 0 1rem; color: #fff; }
+    
+    /* Paragraphes et listes */
+    .post-content :global(p) { margin-bottom: 1.5rem; }
+    .post-content :global(ul), .post-content :global(ol) { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+    .post-content :global(li) { margin-bottom: 0.5rem; }
+    
+    /* Gras et Liens */
+    .post-content :global(strong) { color: #fff; font-weight: 600; }
+    .post-content :global(a) { color: var(--brand-color); text-decoration: underline; text-underline-offset: 4px; }
+    
+    /* Code blocks */
+    .post-content :global(code) {
+        background-color: rgba(255,255,255,0.1);
+        color: #fff;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+    
+    .post-content :global(blockquote) {
+        border-left: 4px solid var(--brand-color);
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        font-style: italic;
+        color: #fff;
+    }
+</style>

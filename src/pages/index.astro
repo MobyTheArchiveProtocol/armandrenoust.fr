@@ -1,60 +1,174 @@
 ---
-// 1. On importe notre nouveau Layout
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry } from 'astro:content';
+
+const accueilData = await getEntry('pages', 'accueil');
+const title = accueilData?.data?.title || "Default Title";
+const subtitle = accueilData?.data?.subtitle || "Default Subtitle";
+const ctaText = accueilData?.data?.ctaText || "Action";
+const ctaLink = accueilData?.data?.ctaLink || "/";
 ---
 
 <BaseLayout title="Accueil">
     
-    <section class="hero">
-        <h1>Un site web qui fonctionne. Simplement.</h1>
-        <p>
-            J'aide les TPE, artisans et PME à faire du web un allié fiable, 
-            sans jargon technique ni promesses exagérées.
-        </p>
-        <a href="/mon-approche" class="cta-button">
-            Découvrir mon approche
-        </a>
+    <section class="hero-wrapper">
+        <div class="hero-glow"></div>
+
+        <div class="hero">
+            <div class="badge">
+                <span class="dot"></span> Disponible pour nouveaux projets
+            </div>
+
+            <h1>
+                Un site web qui fonctionne.<br>
+                <span class="text-gradient-orange">Simplement.</span>
+            </h1>
+            
+            <p class="subtitle">{subtitle}</p>
+            
+            <div class="actions">
+                <a href={ctaLink} class="btn-geist-primary">{ctaText}</a>
+                <a href="/contact" class="btn-geist-secondary">Discussion (15min)</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="grid-wrapper">
+        <div class="grid-card">
+            <div class="icon-box orange-box">⚡️</div>
+            <h3>Ultra Rapide</h3>
+            <p>100/100 PageSpeed. Zéro Javascript inutile. L'instantanéité comme standard.</p>
+        </div>
+        <div class="grid-card">
+            <div class="icon-box orange-box">🛡️</div>
+            <h3>Architecture Sécurisée</h3>
+            <p>Jamstack & Headless. Une surface d'attaque réduite au strict minimum.</p>
+        </div>
+        <div class="grid-card">
+            <div class="icon-box orange-box">/</div>
+            <h3>Pragmatisme</h3>
+            <p>Pas de jargon. Pas de vente forcée. Juste la bonne stack pour le bon besoin.</p>
+        </div>
     </section>
 
 </BaseLayout>
 
-
 <style>
-    .hero {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 60vh;
+    .hero-wrapper {
+        padding: 8rem 0 6rem;
         text-align: center;
+        display: flex; justify-content: center; align-items: center;
+        position: relative;
     }
 
-    .hero h1 {
-        font-size: 2.8rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        line-height: 1.2;
+    /* --- GLOW ADAPTÉ AU DARK MODE --- */
+    .hero-glow {
+        position: absolute;
+        top: 50%; left: 50%; transform: translate(-50%, -50%);
+        width: 500px; height: 300px;
+        /* Une lueur orange/rougeoyante diffuse */
+        background: radial-gradient(circle, rgba(249, 115, 22, 0.15) 0%, rgba(0,0,0,0) 70%);
+        filter: blur(80px);
+        z-index: -1; pointer-events: none;
     }
 
-    .hero p {
-        font-size: 1.2rem;
-        color: #495057;
-        max-width: 600px;
-        margin-bottom: 2rem;
+    .hero { max-width: 900px; position: relative; }
+
+    /* Badge Dark */
+    .badge {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.05); /* Blanc très transparent */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(4px);
+        padding: 0.4rem 0.8rem; border-radius: 50px;
+        font-size: 0.85rem; font-weight: 500;
+        color: #ccc; /* Texte gris clair */
+        margin-bottom: 1.5rem;
+    }
+    .dot {
+        width: 6px; height: 6px; background-color: #22c55e;
+        border-radius: 50%; box-shadow: 0 0 10px rgba(34, 197, 94, 0.5); /* Petit halo vert */
     }
 
-    .cta-button {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #ffffff;
-        background-color: #007bff;
-        text-decoration: none;
-        padding: 0.8rem 1.5rem;
-        border-radius: 8px;
-        transition: background-color 0.2s ease;
+    h1 {
+        font-size: 4.5rem; font-weight: 800; letter-spacing: -0.04em;
+        line-height: 1.1; margin-bottom: 1.5rem; color: #fff;
     }
 
-    .cta-button:hover {
-        background-color: #0056b3;
+    /* Dégradé Orange Intense */
+    .text-gradient-orange {
+        background: linear-gradient(to right, #f97316, #fb923c);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        /* Petit drop-shadow coloré pour faire ressortir le texte */
+        filter: drop-shadow(0 0 20px rgba(249, 115, 22, 0.3)); 
+    }
+
+    .subtitle {
+        font-size: 1.3rem; color: #888; max-width: 650px; margin: 0 auto 3rem;
+        font-weight: 400;
+    }
+
+    /* BOUTONS DARK MODE */
+    .actions { display: flex; gap: 1rem; justify-content: center; }
+
+    .btn-geist-primary {
+        background-color: #fff; color: #000; /* Bouton blanc sur fond noir = Impact max */
+        height: 50px; padding: 0 2.5rem; display: inline-flex; align-items: center;
+        border-radius: 6px; font-weight: 600; font-size: 1rem; border: 1px solid #fff;
+        transition: all 0.2s ease; text-decoration: none;
+    }
+    .btn-geist-primary:hover {
+        background-color: #ccc; border-color: #ccc; transform: translateY(-2px);
+    }
+
+    .btn-geist-secondary {
+        background-color: transparent; color: #fff;
+        height: 50px; padding: 0 2.5rem; display: inline-flex; align-items: center;
+        border-radius: 6px; font-weight: 500; font-size: 1rem;
+        border: 1px solid #333; /* Bordure sombre */
+        transition: all 0.2s ease; text-decoration: none;
+    }
+    .btn-geist-secondary:hover { border-color: #fff; background-color: rgba(255,255,255,0.05); }
+
+    /* GRID DARK */
+    .grid-wrapper {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+        margin-top: 2rem; padding-bottom: 4rem;
+    }
+
+    .grid-card {
+        border: 1px solid var(--border-subtle);
+        background: var(--bg-card); /* Fond gris très foncé (#0a0a0a) */
+        border-radius: 8px; padding: 2rem;
+        transition: all 0.2s ease; text-align: left;
+    }
+
+    .grid-card:hover {
+        border-color: var(--brand-color); /* Bordure orange au survol */
+        transform: translateY(-3px);
+        box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5); /* Ombre profonde */
+    }
+
+    .icon-box {
+        width: 48px; height: 48px; border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.5rem; margin-bottom: 1.5rem;
+    }
+
+    /* Boîte orange sombre pour que ça ne pique pas les yeux */
+    .orange-box {
+        background-color: rgba(249, 115, 22, 0.1); /* Orange transparent */
+        color: #fb923c; /* Orange clair */
+        border: 1px solid rgba(249, 115, 22, 0.2);
+    }
+
+    .grid-card h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; color: #fff; }
+    .grid-card p { font-size: 0.95rem; color: #888; margin: 0; line-height: 1.6; }
+
+    @media (max-width: 768px) {
+        h1 { font-size: 3rem; }
+        .grid-wrapper { grid-template-columns: 1fr; }
+        .actions { flex-direction: column; width: 100%; }
+        .btn-geist-primary, .btn-geist-secondary { width: 100%; justify-content: center; }
     }
 </style>

@@ -1,60 +1,84 @@
----
-// Pas besoin de JS pour l'instant
----
-
 <header class="site-header">
     <div class="container">
-        <a href="/" class="logo">[Votre Nom]</a>
+        <a href="/" class="logo">
+            <span class="logo-mark">/</span> Armand Renoust
+        </a>
 
         <nav>
             <a href="/">Accueil</a>
-            <a href="/mon-approche">Mon Approche</a>
-            <a href="/a-propos">À Propos</a>
-            <a href="/contact">Contact</a>
+            <a href="/mon-approche">Approche</a>
+            <a href="/blog">Blog</a>
+            <a href="/a-propos">À propos</a>
+            <a href="/contact" class="nav-cta">Me contacter</a>
         </nav>
     </div>
 </header>
 
 <style>
     .site-header {
-        background-color: #ffffff;
-        border-bottom: 1px solid #dee2e6;
-        padding: 1rem 0;
+        position: fixed; top: 0; left: 0; right: 0;
+        height: var(--header-height); z-index: 100;
+        background-color: rgba(8, 9, 10, 0.75); 
+        backdrop-filter: blur(16px); 
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    /* On réutilise la classe 'container' pour centrer le contenu,
-       mais on la définit localement ici.
-    */
     .container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 0 2rem;
-        display: flex;
-        justify-content: space-between; /* Met le logo à gauche et la nav à droite */
-        align-items: center;
+        max-width: var(--max-width); margin: 0 auto; padding: 0 2rem;
+        height: 100%; display: flex; justify-content: space-between; align-items: center;
     }
 
+    /* --- NOUVEAU STYLE DU LOGO TEXTUEL --- */
     .logo {
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: #212529;
+        font-family: var(--font-mono); /* Police Code */
+        font-size: 0.95rem; /* Un peu plus petit, c'est plus élégant en mono */
+        font-weight: 500;
+        letter-spacing: -0.03em; /* Un peu serré */
+        color: #fff; 
+        display: flex; align-items: center; gap: 0.6rem;
         text-decoration: none;
+        
+        /* Petit fond subtil pour faire "Badge" (Optionnel, mais sympa) */
+        background: rgba(255,255,255,0.05);
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.2s ease;
     }
 
-    nav {
-        display: flex;
-        gap: 1.5rem; /* Espace entre les liens du menu */
+    .logo:hover {
+        border-color: var(--brand-color);
+        background: rgba(249, 115, 22, 0.1);
     }
+
+    .logo-mark { 
+        color: var(--brand-color); 
+        font-weight: 700;
+    }
+
+    nav { display: flex; gap: 2rem; align-items: center; }
 
     nav a {
-        font-size: 1rem;
-        font-weight: 500;
-        color: #495057;
-        text-decoration: none;
+        font-size: 0.9rem; font-weight: 500;
+        color: #a1a1a1; 
         transition: color 0.2s ease;
+        text-decoration: none;
     }
+    nav a:hover { color: #fff; }
 
-    nav a:hover {
-        color: #007bff; /* Rappel du bleu */
+    .nav-cta {
+        background-color: #ededed;
+        color: #000 !important; 
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 600;
+        border: 1px solid transparent;
+        transition: all 0.2s;
+    }
+    .nav-cta:hover {
+        background-color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
     }
 </style>

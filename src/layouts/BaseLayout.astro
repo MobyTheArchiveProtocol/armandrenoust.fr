@@ -1,14 +1,10 @@
 ---
-// 1. On IMPORTE nos nouveaux composants
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-// On définit les "Props" attendues par ce Layout
 export interface Props {
     title: string;
 }
-
-// On récupère le titre passé par la page (ex: "Accueil")
 const { title } = Astro.props;
 ---
 
@@ -19,11 +15,17 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     
-    <title>{title} | Artisan Web Pragmatique</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
-    </head>
+    <title>{title} | Artisan Web Pragmatique</title>
+</head>
 <body>
     
+    <div class="main-background"></div>
+
     <Header />
     
     <main>
@@ -36,42 +38,61 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
-    /* On utilise 'is:global' pour pouvoir cibler les balises 
-     <html> et <body> directement.
-    */
-    html {
-        box-sizing: border-box;
-    }
-    *, *:before, *:after {
-        box-sizing: inherit;
+    :root {
+        /* --- NOUVELLE PALETTE "SOFT MIDNIGHT" --- */
+        
+        /* Au lieu de #030303, on prend un gris très sombre teinté */
+        --bg-main: #08090a; 
+        
+        /* Les cartes doivent être un poil plus claires pour se détacher */
+        --bg-card: #111111; 
+        
+        --text-main: #ededed;
+        --text-muted: #999; /* Gris un peu plus doux */
+        
+        --border-subtle: #222;
+        --brand-color: #f97316;
+        
+        --max-width: 1100px;
+        --radius: 8px;
+        --header-height: 64px;
+        --font-sans: 'Inter', sans-serif;
+       --font-mono: 'JetBrains Mono', monospace; /* La nouvelle police pour le logo */
     }
 
+    html { background-color: var(--bg-main); }
+    
     body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background-color: #f8f9fa;
-        color: #212529;
-        margin: 0;
-        padding: 0;
-
-        /* Cette configuration (Flexbox) est cruciale :
-         Elle force le <body> à prendre 100% de la hauteur (min-height: 100vh)
-         et pousse le <Footer> en bas, même sur les pages courtes.
-        */
+        font-family: var(--font-sans);
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        margin: 0; padding: 0;
         min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+        display: flex; flex-direction: column;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* AMÉLIORATION : Fond avec un "Spotlight" central */
+    .main-background {
+        position: fixed; z-index: -1; top: 0; left: 0; width: 100vw; height: 100vh;
+        background-color: var(--bg-main);
+        
+        /* 1. Les points (très subtils) */
+        background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+        background-size: 32px 32px;
+        
+        /* 2. LE VIGNETTAGE : Lumière au centre, sombre sur les bords */
+        mask-image: radial-gradient(circle at center, black 40%, rgba(0,0,0,0.4) 100%);
+        -webkit-mask-image: radial-gradient(circle at center, black 40%, rgba(0,0,0,0.4) 100%);
     }
 
     main {
-        max-width: 900px; /* Largeur max du contenu */
-        width: 100%;
-        margin: 0 auto; /* Centrage automatique */
-        padding: 2rem;
-
-        /* C'est la partie qui "pousse" le footer.
-         'flex: 1' dit à 'main' de prendre toute la place 
-         verticale disponible entre le Header et le Footer.
-        */
-        flex: 1; 
+        width: 100%; max-width: var(--max-width); margin: 0 auto;
+        padding: 2rem; flex: 1; margin-top: var(--header-height);
     }
+
+    h1, h2, h3 { color: #fff; margin-top: 0; letter-spacing: -0.03em; }
+    p { line-height: 1.6; color: var(--text-muted); }
+    a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+    img { max-width: 100%; border-radius: var(--radius); }
 </style>

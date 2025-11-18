@@ -38,64 +38,85 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
     .contact-wrapper {
-        max-width: 650px; /* Limite la largeur du formulaire */
-        margin: 0 auto; /* Centre le bloc */
+        max-width: 600px;
+        margin: 4rem auto 0;
+        /* On peut encadrer le formulaire dans une carte subtile */
+        background: var(--bg-card);
+        padding: 3rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-subtle);
+    }
+
+    h1 {
         text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
     }
 
     .subtitle {
-        font-size: 1.15rem;
-        color: #495057;
+        text-align: center;
+        font-size: 1.1rem;
+        color: var(--text-muted);
         margin-bottom: 3rem;
     }
 
     .contact-form {
-        display: flex;
-        flex-direction: column;
-        text-align: left; /* Aligne les labels à gauche */
+        display: flex; flex-direction: column;
     }
 
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
+    .form-group { margin-bottom: 1.5rem; }
 
     .form-group label {
         display: block;
         margin-bottom: 0.5rem;
         font-weight: 500;
+        font-size: 0.9rem;
+        color: #ccc;
     }
 
+    /* STYLE DES CHAMPS (INPUTS) */
     .form-group input,
     .form-group textarea {
         width: 100%;
         padding: 0.8rem 1rem;
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
+        
+        /* Fond sombre transparent */
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-subtle);
+        
+        border-radius: 6px;
         font-size: 1rem;
-        font-family: inherit; /* Utilise la même police que le site */
+        font-family: inherit;
+        color: #fff; /* Texte blanc quand on tape */
+        transition: all 0.2s ease;
     }
 
-    .form-group textarea {
-        resize: vertical; /* Permet de redimensionner en hauteur */
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    /* Effet Focus : Bordure Orange + Fond légèrement plus clair */
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--brand-color);
+        background-color: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1); /* Petit halo orange */
     }
 
     .cta-button {
-        /* On réutilise le style de notre bouton principal */
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #ffffff;
-        background-color: #007bff;
-        text-decoration: none;
+        font-size: 1rem; font-weight: 600;
+        color: #000; /* Texte noir */
+        background-color: #fff; /* Fond blanc */
         padding: 0.9rem 2rem;
-        border-radius: 8px;
-        border: none; /* Important pour un <button> */
+        border-radius: 6px;
+        border: none;
         cursor: pointer;
-        transition: background-color 0.2s ease;
-        align-self: center; /* Centre le bouton */
-        margin-top: 1rem;
+        transition: all 0.2s ease;
+        align-self: flex-start; /* Aligne à gauche */
+        width: 100%;
     }
 
     .cta-button:hover {
-        background-color: #0056b3;
+        background-color: #e5e5e5;
+        transform: translateY(-1px);
     }
 </style>

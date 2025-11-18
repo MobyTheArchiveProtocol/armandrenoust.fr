@@ -1,36 +1,31 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry } from 'astro:content';
+
+// 1. On récupère les données
+const aproposData = await getEntry('pages', 'apropos');
+const { title, intro, image } = aproposData.data;
+
+// 2. On prépare le contenu "Riche" (le corps du texte) pour l'affichage
+const { Content } = await aproposData.render();
 ---
 
 <BaseLayout title="À Propos">
-    <h1>De l'e-commerce à l'artisanat web.</h1>
+    <h1>{title}</h1>
 
     <div class="content-wrapper">
         <div class="text-content">
-            <p class="intro">Bonjour, je suis [Votre Nom].</p>
-            <p>
-                Depuis 6 ans, je gère le marketing digital du site <code>leurredelapeche.fr</code>. 
-                J'y ai piloté des migrations, optimisé le SEO, géré des budgets SEA 
-                conséquents et plongé dans la technique des flux e-commerce.
-            </p>
-            <p>
-                <strong>Pourquoi me lancer en freelance ?</strong>
-            </p>
-            <p>
-                Pour retrouver le plaisir du travail "bien fait", à une échelle plus humaine. 
-                J'ai vu trop de TPE se faire vendre des solutions surdimensionnées, lentes 
-                et complexes.
-            </p>
-            <p>
-                Ma mission : vous offrir un service honnête, pédagogique, et 
-                techniquement irréprochable. Que vous soyez artisan, consultant ou petite PME, 
-                je suis votre interlocuteur technique unique.
-            </p>
+            <p class="intro">{intro}</p>
+            
+            <div class="bio-text">
+                <Content />
+            </div>
         </div>
 
         <div class="image-content">
-            <img src="/images/placeholder-profil.png" alt="[Votre Nom], artisan web">
-            <p class="caption">[Votre Nom]</p>
+            {image && (
+                <img src={image} alt="Photo de profil" />
+            )}
         </div>
     </div>
 
@@ -44,52 +39,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .content-wrapper {
         display: grid;
-        /* 2 colonnes : 2/3 pour le texte, 1/3 pour l'image */
         grid-template-columns: 2fr 1fr; 
         gap: 2.5rem;
-        align-items: start; /* Aligne le haut des colonnes */
+        align-items: start;
     }
 
     .intro {
         font-size: 1.2rem;
         font-weight: 600;
         color: #333;
+        margin-bottom: 1.5rem;
     }
 
-    .text-content p {
-        line-height: 1.7; /* Plus lisible */
+    /* On stylise le Markdown généré (le <Content />) */
+    .bio-text :global(p) {
+        line-height: 1.7;
         margin-bottom: 1rem;
     }
-
-    .text-content code {
-        /* Style pour mettre en avant votre ancien site */
-        background-color: #e9ecef;
-        padding: 0.2rem 0.4rem;
-        border-radius: 4px;
-        font-size: 0.9rem;
+    .bio-text :global(strong) {
+        font-weight: 700;
+        color: #007bff; /* Exemple : mettre le gras en bleu */
     }
 
     .image-content img {
         width: 100%;
         height: auto;
-        border-radius: 8px; /* Bords arrondis */
+        border-radius: 8px;
         box-shadow: 0 4px 12px rgba(0,0,0, 0.1);
     }
-    .image-content .caption {
-        text-align: center;
-        font-size: 0.9rem;
-        font-style: italic;
-        color: #6c757d;
-        margin-top: 0.5rem;
-    }
 
-    /* Responsive pour mobile */
     @media (max-width: 768px) {
         .content-wrapper {
-            grid-template-columns: 1fr; /* Une seule colonne */
+            grid-template-columns: 1fr;
         }
         .image-content {
-            /* Sur mobile, on met l'image en premier */
             order: -1; 
             margin-bottom: 2rem;
         }

@@ -58,63 +58,66 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 
 <style>
-    .page-intro {
-        text-align: center;
-        margin-bottom: 3rem;
+    .page-intro { 
+        text-align: center; margin-bottom: 4rem; max-width: 700px; margin-left: auto; margin-right: auto;
     }
-    .page-intro h1 {
-        font-size: 2.5rem; /* Un peu plus petit que le H1 de la page d'accueil */
-    }
-    .page-intro .subtitle {
-        font-size: 1.15rem;
-        color: #495057;
-        max-width: 700px;
-        margin: 1rem auto 0;
+    .page-intro h1 { font-size: 3rem; margin-bottom: 1rem; color: #fff; }
+    .page-intro .subtitle { font-size: 1.2rem; color: var(--text-muted); }
+
+    .solutions-grid { 
+        display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 4rem;
     }
 
-    /* La grille pour les 2 colonnes */
-    .solutions-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* 2 colonnes de taille égale */
-        gap: 2rem; /* Espace entre les colonnes */
+    /* CARTES SOMBRES */
+    .solution-card { 
+        background-color: var(--bg-card); /* Gris foncé */
+        border: 1px solid var(--border-subtle); 
+        border-radius: 12px; 
+        padding: 2.5rem; 
+        transition: all 0.3s ease;
+        position: relative; overflow: hidden;
     }
 
-    .solution-card {
-        background-color: #ffffff;
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
-        padding: 1.5rem 2rem;
-        box-shadow: 0 4px 12px rgba(0,0,0, 0.05);
+    .solution-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--brand-color); /* Bordure orange au survol */
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
     }
 
-    .solution-card h2 {
-        margin-top: 0;
-        color: #007bff; /* On rappelle le bleu du bouton */
+    .solution-card h2 { 
+        margin-top: 0; font-size: 1.5rem; margin-bottom: 1rem; color: #fff;
     }
 
-    .benefits {
-        list-style: none;
-        padding-left: 0;
-    }
-    .benefits li {
-        margin-bottom: 0.5rem;
-        line-height: 1.5;
+    /* Texte descriptif dans la carte */
+    .solution-card p { color: #aaa; }
+    /* Les titres "Pour qui ?" en gras deviennent blancs */
+    .solution-card :global(strong) { color: #fff; }
+
+    .benefits { list-style: none; padding-left: 0; margin: 2rem 0; }
+    
+    .benefits li { 
+        margin-bottom: 0.8rem; line-height: 1.5; padding-left: 1.5rem; position: relative;
+        font-size: 0.95rem; color: #ccc; /* Texte liste gris clair */
     }
 
-    .extra-services {
-        margin-top: 3rem;
-        background-color: #ffffff;
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
-        padding: 1.5rem 2rem;
+    .benefits li::before {
+        content: '✓'; position: absolute; left: 0;
+        color: var(--brand-color); font-weight: bold;
     }
 
-    /* IMPORTANT : Rendre la grille responsive sur mobile 
-      (les 2 colonnes passeront l'une sous l'autre)
-    */
+    /* SECTION BASSE (Contenu Markdown) */
+    .extra-services { 
+        background-color: rgba(255,255,255,0.02); /* Très légèrement plus clair que le fond */
+        border: 1px solid var(--border-subtle); 
+        border-radius: 12px; padding: 3rem; 
+    }
+
+    /* Style du Markdown généré */
+    .extra-services :global(h3) { font-size: 1.5rem; margin-top: 1.5rem; color: #fff; }
+    .extra-services :global(li) { margin-bottom: 0.5rem; color: #aaa; }
+    .extra-services :global(p) { color: #aaa; }
+
     @media (max-width: 768px) {
-        .solutions-grid {
-            grid-template-columns: 1fr; /* 1 seule colonne */
-        }
+        .solutions-grid { grid-template-columns: 1fr; }
     }
 </style>

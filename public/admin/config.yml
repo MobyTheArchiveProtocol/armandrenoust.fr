@@ -1,0 +1,46 @@
+backend:
+  name: github
+  repo: "MobyTheArchiveProtocol/freelance-armand" # <--- C'est ici qu'il faut mettre vos infos !
+  branch: main # Assurez-vous que votre branche principale s'appelle bien "main"
+
+# Cette ligne permet de tester le CMS en local (sur votre PC) sans serveur
+local_backend: true
+
+# Où stocker les images uploadées via le CMS
+media_folder: "public/images/uploads"
+# L'URL publique pour accéder à ces images
+public_folder: "/images/uploads"
+
+# Configuration des "Collections" (Vos types de contenu)
+collections:
+  - name: "blog" # Le nom technique (utilisé dans le code)
+    label: "Articles de Blog" # Le nom affiché dans l'admin
+    folder: "src/content/blog" # Où Decap doit créer/lire les fichiers .md
+    create: true # Autoriser la création de nouveaux articles
+    slug: "{{slug}}" # Le nom du fichier sera le slug
+    fields: # Les champs du formulaire (Doit matcher votre config.ts Astro !)
+      - {label: "Titre", name: "title", widget: "string"}
+      - {label: "Date de publication", name: "pubDate", widget: "datetime"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Image de couverture", name: "heroImage", widget: "image", required: false}
+      - {label: "Corps de l'article", name: "body", widget: "markdown"}
+  - name: "pages"
+    label: "Pages du Site"
+    files:
+      - file: "src/content/pages/accueil.md" # On cible le fichier précis
+        label: "Page d'Accueil"
+        name: "accueil"
+        fields:
+          - {label: "Titre Principal", name: "title", widget: "string"}
+          - {label: "Sous-titre", name: "subtitle", widget: "text"}
+          - {label: "Texte du Bouton", name: "ctaText", widget: "string"}
+          - {label: "Lien du Bouton", name: "ctaLink", widget: "string"}
+      - file: "src/content/pages/apropos.md"
+        label: "Page À Propos"
+        name: "apropos"
+        fields:
+          - {label: "Titre Principal", name: "title", widget: "string"}
+          - {label: "Phrase d'intro", name: "intro", widget: "string"}
+          - {label: "Photo de profil", name: "image", widget: "image"}
+          # Le champ "body" correspond au texte principal en bas du fichier Markdown
+          - {label: "Votre Bio (Texte riche)", name: "body", widget: "markdown"}
