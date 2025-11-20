@@ -1,10 +1,4 @@
-# Astro Starter Kit: Basics
-
-```sh
-npm create astro@latest -- --template basics
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Site personnel construit avec Astro, Tailwind-like CSS et Decap CMS. Focus sur la performance (100/100 Lighthouse) et l'expérience utilisateur.
 
 ## 🚀 Project Structure
 
