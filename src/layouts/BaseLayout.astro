@@ -40,16 +40,10 @@ const { title } = Astro.props;
 <style is:global>
     :root {
         /* --- NOUVELLE PALETTE "SOFT MIDNIGHT" --- */
-        
-        /* Au lieu de #030303, on prend un gris très sombre teinté */
         --bg-main: #08090a; 
-        
-        /* Les cartes doivent être un poil plus claires pour se détacher */
         --bg-card: #111111; 
-        
         --text-main: #ededed;
-        --text-muted: #999; /* Gris un peu plus doux */
-        
+        --text-muted: #999;
         --border-subtle: #222;
         --brand-color: #f97316;
         
@@ -57,10 +51,21 @@ const { title } = Astro.props;
         --radius: 8px;
         --header-height: 64px;
         --font-sans: 'Inter', sans-serif;
-       --font-mono: 'JetBrains Mono', monospace; /* La nouvelle police pour le logo */
+        --font-mono: 'JetBrains Mono', monospace;
     }
 
-    html { background-color: var(--bg-main); }
+    /* 1. LE FIX CRUCIAL : Box Sizing */
+    /* Cela empêche les éléments de dépasser quand on ajoute du padding */
+    *, *:before, *:after {
+        box-sizing: border-box;
+    }
+
+    html { 
+        background-color: var(--bg-main);
+        /* 2. SÉCURITÉ : Empêche le scroll horizontal sur mobile */
+        overflow-x: hidden;
+        margin: 0; padding: 0;
+    }
     
     body {
         font-family: var(--font-sans);
@@ -72,23 +77,34 @@ const { title } = Astro.props;
         -webkit-font-smoothing: antialiased;
     }
 
-    /* AMÉLIORATION : Fond avec un "Spotlight" central */
+    /* Fond avec "Spotlight" */
     .main-background {
         position: fixed; z-index: -1; top: 0; left: 0; width: 100vw; height: 100vh;
         background-color: var(--bg-main);
-        
-        /* 1. Les points (très subtils) */
         background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
         background-size: 32px 32px;
-        
-        /* 2. LE VIGNETTAGE : Lumière au centre, sombre sur les bords */
         mask-image: radial-gradient(circle at center, black 40%, rgba(0,0,0,0.4) 100%);
         -webkit-mask-image: radial-gradient(circle at center, black 40%, rgba(0,0,0,0.4) 100%);
+        pointer-events: none;
     }
 
     main {
-        width: 100%; max-width: var(--max-width); margin: 0 auto;
-        padding: 2rem; flex: 1; margin-top: var(--header-height);
+        width: 100%; 
+        max-width: var(--max-width); 
+        margin: 0 auto;
+        /* Padding par défaut pour Desktop */
+        padding: 2rem; 
+        flex: 1; 
+        margin-top: var(--header-height);
+    }
+
+    /* 3. FIX MOBILE : On réduit le padding pour laisser de la place au contenu */
+    @media (max-width: 600px) {
+        main {
+            /* On passe de 2rem à 1rem sur les côtés */
+            padding: 2rem 1rem; 
+            overflow-x: hidden; /* Sécurité supplémentaire */
+        }
     }
 
     h1, h2, h3 { color: #fff; margin-top: 0; letter-spacing: -0.03em; }
