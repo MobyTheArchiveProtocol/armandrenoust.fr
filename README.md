@@ -57,6 +57,11 @@ Le design est conçu "Mobile First" avec une palette sombre personnalisée ("Sof
 * **Police :** Inter (Corps) & JetBrains Mono (Logo/Tech).
 * **Accessibilité :** Contraste élevé et balisage sémantique respecté.
 
+## 📄 Licence
+
+Ce projet est sous copyright © 2025 Armand Renoust.
+Le code est public à des fins de démonstration uniquement. Toute reproduction ou déploiement non autorisé est interdit. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
 ---
 
 *Développé par Armand Renoust*
