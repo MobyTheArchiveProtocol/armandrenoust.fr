@@ -1,40 +1,62 @@
-Site personnel construit avec Astro, Tailwind-like CSS et Decap CMS. Focus sur la performance (100/100 Lighthouse) et l'expérience utilisateur.
+# Armand Renoust - Portfolio Professionnel
 
-## 🚀 Project Structure
+Code source de mon site personnel et professionnel : [armandrenoust.fr](https://armandrenoust.fr)
 
-Inside of your Astro project, you'll see the following folders and files:
+Ce projet incarne mon approche du développement web : **Pragmatique, Performant et Durable.**
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+![Astro](https://img.shields.io/badge/Built_with-Astro-orange?style=for-the-badge&logo=astro)
+![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?style=for-the-badge&logo=vercel)
+![Status](https://img.shields.io/badge/Status-Production-green?style=for-the-badge)
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 🎯 Philosophie du Projet
 
-## 🧞 Commands
+L'objectif n'était pas d'utiliser le framework le plus complexe, mais le plus adapté pour un site vitrine professionnel. J'ai choisi une architecture **Jamstack** pour garantir :
+1.  **Performance maximale :** Score Lighthouse 100/100.
+2.  **Sécurité :** Pas de base de données à maintenir, surface d'attaque réduite.
+3.  **Autonomie :** Gestion des contenus via un CMS Headless sans toucher au code.
 
-All commands are run from the root of the project, from a terminal:
+## 🛠 Stack Technique
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+* **Framework :** [Astro 4.0](https://astro.build/) (Pour la génération statique et le "Zero JS by default").
+* **CMS :** [Decap CMS](https://decapcms.org/) (Gestion de contenu basée sur Git).
+* **Styling :** CSS Scoped & Variables CSS modernes (Design System "Midnight").
+* **Hébergement :** [Vercel](https://vercel.com/) (CI/CD automatique).
+* **Formulaire :** Formspree.
 
-## 👀 Want to learn more?
+## 📂 Structure du Projet
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+L'architecture suit les standards Astro :
+
+* `src/pages/` : Routes et templates des pages (Accueil, Blog, Contact).
+* `src/content/` : Collections de données (Articles de blog et contenus des pages en Markdown).
+* `src/layouts/` : Gabarits globaux (SEO, Header, Footer).
+* `src/components/` : Composants UI réutilisables.
+* `public/admin/` : Configuration de Decap CMS.
+
+## 🚀 Installation Locale
+
+Si vous souhaitez tester ce projet localement :
+
+1.  Cloner le dépôt :
+    ```bash
+    git clone [https://github.com/armandrenoust/armandrenoust.fr.git](https://github.com/armandrenoust/armandrenoust.fr.git)
+    ```
+2.  Installer les dépendances :
+    ```bash
+    npm install
+    ```
+3.  Lancer le serveur de développement :
+    ```bash
+    npm run dev
+    ```
+
+## 🎨 Design System
+
+Le design est conçu "Mobile First" avec une palette sombre personnalisée ("Soft Midnight") pour un rendu premium et confortable.
+
+* **Police :** Inter (Corps) & JetBrains Mono (Logo/Tech).
+* **Accessibilité :** Contraste élevé et balisage sémantique respecté.
+
+---
+
+*Développé par Armand Renoust*
