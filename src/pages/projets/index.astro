@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="Mes Réalisations" description="Portfolio des projets web conçus sur-mesure : Astro, Performance et Design.">
+	
+	<section class="intro">
+		<h1>Réalisations</h1>
+		<p>Une sélection de projets conçus avec pragmatisme et exigence technique.</p>
+	</section>
+
+	<div class="projects-grid">
+		{projects.map((project) => (
+			<a href={`/projets/${project.slug}`} class="project-card">
+				<div class="card-image">
+                    {project.data.heroImage ? (
+					    <img src={project.data.heroImage} alt={project.data.title} />
+                    ) : (
+                        <div class="placeholder-img"></div>
+                    )}
+				</div>
+				<div class="card-content">
+					<div class="tags">
+                        {project.data.techStack.slice(0, 3).map(t => <span class="tag">{t}</span>)}
+                    </div>
+                    <h3>{project.data.title}</h3>
+					<p>{project.data.description}</p>
+                    <span class="read-more">Voir l'étude de cas &rarr;</span>
+				</div>
+			</a>
+		))}
+	</div>
+
+</BaseLayout>
+
+<style>
+	.intro { text-align: center; margin-bottom: 4rem; }
+    h1 { font-size: 3rem; margin-bottom: 1rem; }
+    
+    .projects-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+
+    .project-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px; overflow: hidden;
+        transition: all 0.3s ease; display: block;
+    }
+    .project-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--brand-color);
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+    }
+
+    .card-image { height: 220px; overflow: hidden; background: #222; }
+    .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; border-radius: 0; }
+    .project-card:hover .card-image img { transform: scale(1.05); }
+
+    .card-content { padding: 2rem; }
+
+    .tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tag { 
+        font-size: 0.75rem; background: rgba(255,255,255,0.05); 
+        padding: 0.2rem 0.6rem; border-radius: 4px; color: #aaa; border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff; }
+    p { font-size: 0.95rem; margin-bottom: 1.5rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .read-more { font-size: 0.9rem; font-weight: 600; color: var(--brand-color); }
+
+    @media (max-width: 600px) {
+        .projects-grid { grid-template-columns: 1fr; }
+    }
+</style>

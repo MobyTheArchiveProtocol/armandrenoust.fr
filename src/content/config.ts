@@ -29,8 +29,23 @@ const pagesCollection = defineCollection({
     image: z.string().optional(),
   }),
 });
+// Collection pour les projets
+const projectsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    client: z.string(),
+    role: z.string(),
+    description: z.string(), // Une phrase d'accroche pour la liste
+    pubDate: z.date(),
+    heroImage: z.string().optional(), // Screenshot du projet
+    techStack: z.array(z.string()), // ex: ['Astro', 'Sanity', 'Tailwind']
+    liveUrl: z.string().optional().nullable(), // Lien vers le site (optionnel)
+  }),
+});
 
 // 3. On exporte nos collections
 export const collections = {
   'blog': blogCollection,
+  'projects': projectsCollection,
 };

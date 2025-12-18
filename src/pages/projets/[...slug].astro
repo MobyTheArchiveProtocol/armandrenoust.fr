@@ -1,0 +1,112 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('projects');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+
+const project = Astro.props;
+const { title, description, client, role, techStack, liveUrl, heroImage } = project.data;
+const { Content } = await project.render();
+---
+
+<BaseLayout title={title} description={description}>
+	
+    <article class="case-study">
+        
+        <header class="project-header">
+            <div class="header-content">
+                <a href="/projets" class="back-link">&larr; Retour aux réalisations</a>
+                <h1>{title}</h1>
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="label">Client</span>
+                        <span class="value">{client}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="label">Rôle</span>
+                        <span class="value">{role}</span>
+                    </div>
+                    {liveUrl && (
+                        <div class="meta-item">
+                            <span class="label">Voir le site</span>
+                            <a href={liveUrl} target="_blank" class="live-link">Visiter &nearr;</a>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </header>
+
+        {heroImage && (
+            <div class="hero-image-container">
+                <img src={heroImage} alt={`Aperçu du projet ${title}`} />
+            </div>
+        )}
+
+        <div class="content-wrapper">
+            <div class="sidebar">
+                <h3>Stack Technique</h3>
+                <div class="tech-tags">
+                    {techStack.map(tech => <span class="tech-tag">{tech}</span>)}
+                </div>
+            </div>
+
+            <div class="main-content">
+                <Content />
+            </div>
+        </div>
+
+    </article>
+
+</BaseLayout>
+
+<style>
+    .project-header { margin-bottom: 3rem; text-align: center; }
+    .back-link { display: inline-block; margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.9rem; }
+    .back-link:hover { color: var(--brand-color); }
+
+    h1 { font-size: 3.5rem; margin-bottom: 2rem; line-height: 1.1; }
+
+    .project-meta {
+        display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+        border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);
+        padding: 1.5rem 0; margin-bottom: 3rem;
+    }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; text-align: left; }
+    .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .value { color: #fff; font-weight: 500; }
+    .live-link { color: var(--brand-color); font-weight: 600; }
+
+    .hero-image-container {
+        margin-bottom: 4rem; border-radius: 12px; overflow: hidden;
+        border: 1px solid var(--border-subtle);
+    }
+    .hero-image-container img { width: 100%; height: auto; display: block; }
+
+    .content-wrapper { display: grid; grid-template-columns: 250px 1fr; gap: 4rem; }
+
+    .sidebar h3 { font-size: 1.1rem; margin-bottom: 1rem; color: #fff; }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tech-tag {
+        font-size: 0.85rem; padding: 0.3rem 0.8rem; border-radius: 4px;
+        background: rgba(255,255,255,0.05); color: #ccc; border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .main-content { font-size: 1.1rem; line-height: 1.8; color: #ccc; }
+    .main-content :global(h2) { font-size: 1.8rem; color: #fff; margin-top: 2.5rem; margin-bottom: 1rem; }
+    .main-content :global(ul) { padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .main-content :global(li) { margin-bottom: 0.5rem; }
+    .main-content :global(strong) { color: #fff; font-weight: 600; }
+
+    @media (max-width: 768px) {
+        h1 { font-size: 2.5rem; }
+        .project-meta { gap: 1.5rem; justify-content: flex-start; text-align: left; }
+        .content-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+        .sidebar { order: 2; margin-top: 2rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem; }
+    }
+</style>

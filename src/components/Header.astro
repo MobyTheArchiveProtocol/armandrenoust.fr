@@ -1,101 +1,157 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+/* Petite fonction pour gérer l'état actif proprement */
+const isActive = (path) => {
+    if (path === '/') return pathname === '/';
+    return pathname.startsWith(path);
+};
+---
+
 <header class="site-header">
     <div class="container">
         <a href="/" class="logo">
-            <span class="logo-mark">/</span> Armand Renoust
+            <span class="logo-icon">/</span> Armand Renoust
         </a>
 
-        <nav>
-            <a href="/">Accueil</a>
-            <a href="/mon-approche">Approche</a>
-            <a href="/blog">Blog</a>
-            <a href="/a-propos">À propos</a>
+        <button id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+
+        <nav id="main-nav">
+            <a href="/" class={isActive('/') ? "active" : ""}>Accueil</a>
+            <a href="/projets" class={isActive('/projets') ? "active" : ""}>Réalisations</a>
+            <a href="/mon-approche" class={isActive('/mon-approche') ? "active" : ""}>Approche</a>
+            <a href="/blog" class={isActive('/blog') ? "active" : ""}>Blog</a>
+            <a href="/a-propos" class={isActive('/a-propos') ? "active" : ""}>À propos</a>
+            
             <a href="/contact" class="nav-cta">Me contacter</a>
         </nav>
     </div>
 </header>
 
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('main-nav');
+
+    if (menuToggle && nav) {
+        menuToggle.addEventListener('click', () => {
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
+            nav.classList.toggle('is-open');
+            menuToggle.classList.toggle('is-active');
+        });
+
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('is-open');
+                menuToggle.classList.remove('is-active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+</script>
+
 <style>
+    /* --- STRUCTURE GÉNÉRALE --- */
     .site-header {
-        position: fixed; top: 0; left: 0; right: 0;
-        height: var(--header-height); z-index: 100;
-        background-color: rgba(8, 9, 10, 0.75); 
-        backdrop-filter: blur(16px); 
-        -webkit-backdrop-filter: blur(16px);
+        position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+        background: rgba(8, 9, 10, 0.85);
+        backdrop-filter: blur(12px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        height: var(--header-height);
     }
 
     .container {
-        max-width: var(--max-width); margin: 0 auto; padding: 0 2rem;
-        height: 100%; display: flex; justify-content: space-between; align-items: center;
+        max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; height: 100%;
+        display: flex; justify-content: space-between; align-items: center;
     }
 
-    /* --- NOUVEAU STYLE DU LOGO TEXTUEL --- */
-    .logo {
-        font-family: var(--font-mono); /* Police Code */
-        font-size: 0.95rem; /* Un peu plus petit, c'est plus élégant en mono */
-        font-weight: 500;
-        letter-spacing: -0.03em; /* Un peu serré */
+    /* --- LOGO (DESIGN RESTAURÉ) --- */
+    .logo { 
+        /* Typographie */
+        font-family: var(--font-mono); 
+        font-weight: 500; 
+        font-size: 0.95rem; 
         color: #fff; 
-        display: flex; align-items: center; gap: 0.6rem;
+        letter-spacing: -0.02em;
         text-decoration: none;
         
-        /* Petit fond subtil pour faire "Badge" (Optionnel, mais sympa) */
-        background: rgba(255,255,255,0.05);
-        padding: 0.4rem 0.8rem;
-        border-radius: 6px;
-        border: 1px solid rgba(255,255,255,0.1);
+        /* Le "Rectangle" */
+        display: flex; 
+        align-items: center; 
+        gap: 0.6rem; 
+        background-color: rgba(255, 255, 255, 0.05); /* Fond gris très léger */
+        border: 1px solid rgba(255, 255, 255, 0.1);  /* Bordure subtile */
+        padding: 0.5rem 1rem;                        /* Espace intérieur */
+        border-radius: 6px;                          /* Arrondi */
         transition: all 0.2s ease;
+        z-index: 101;
     }
 
     .logo:hover {
-        border-color: var(--brand-color);
-        background: rgba(249, 115, 22, 0.1);
-    }
-
-    .logo-mark { 
-        color: var(--brand-color); 
-        font-weight: 700;
-    }
-
-    nav { display: flex; gap: 2rem; align-items: center; }
-
-    nav a {
-        font-size: 0.9rem; font-weight: 500;
-        color: #a1a1a1; 
-        transition: color 0.2s ease;
-        text-decoration: none;
-    }
-    nav a:hover { color: #fff; }
-
-    .nav-cta {
-        background-color: #ededed;
-        color: #000 !important; 
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        font-weight: 600;
-        border: 1px solid transparent;
-        transition: all 0.2s;
-    }
-    .nav-cta:hover {
-        background-color: #fff;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-    }
-    @media (max-width: 768px) {
-    /* Masque les liens de navigation classiques sur mobile */
-    nav a:not(.nav-cta) {
-        display: none;
+        border-color: rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.08);
     }
     
-    /* Le conteneur entier peut avoir moins de padding */
-    .container {
-        padding: 0 1rem;
+    .logo-icon { 
+        color: var(--brand-color); 
+        font-weight: bold;
     }
 
-    /* Le logo est très important, on le garde */
-    .logo {
-        font-size: 1.2rem;
-        padding: 0.3rem 0.6rem;
+    /* --- NAVIGATION DESKTOP --- */
+    nav { display: flex; gap: 2rem; align-items: center; }
+    
+    nav a { 
+        font-family: var(--font-sans); /* Force la police standard */
+        font-size: 0.95rem; /* Taille standard desktop */
+        color: var(--text-muted); 
+        font-weight: 500; 
+        text-decoration: none; 
+        transition: color 0.2s; 
     }
-}
+    nav a:hover, nav a.active { color: #fff; }
+
+    .nav-cta {
+        background: #fff; color: #000 !important; 
+        padding: 0.6rem 1.2rem; /* Taille bouton */
+        border-radius: 6px; 
+        font-weight: 600; 
+        transition: transform 0.2s, background 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); background: #eee; }
+
+    /* --- BOUTON BURGER (Invisible sur PC) --- */
+    #menu-toggle { display: none; }
+
+    /* --- MOBILE (< 768px) --- */
+    @media (max-width: 768px) {
+        #menu-toggle {
+            display: flex; flex-direction: column; gap: 6px;
+            background: none; border: none; cursor: pointer; padding: 0.5rem;
+            z-index: 101;
+        }
+        
+        .hamburger-line {
+            width: 24px; height: 2px; background-color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        #menu-toggle.is-active .hamburger-line:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        #menu-toggle.is-active .hamburger-line:nth-child(2) { transform: rotate(-45deg) translate(5px, -6px); }
+
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background-color: var(--bg-main);
+            flex-direction: column; justify-content: center; align-items: center;
+            gap: 2rem;
+            transform: translateY(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0; pointer-events: none;
+        }
+
+        nav.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+        nav a { font-size: 1.5rem; color: #fff; }
+        .nav-cta { font-size: 1.2rem; padding: 0.8rem 2rem; margin-top: 1rem; }
+    }
 </style>
